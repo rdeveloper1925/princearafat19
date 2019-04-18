@@ -8,10 +8,7 @@ const NavBar=(props)=>{
     </button>
     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div className="navbar-nav">
-        <a className="nav-item nav-link active" href="#">Sports <span className="sr-only">(current)</span></a>
-        <a className="nav-item nav-link" href="#">Entertainment</a>
-        <a onClick={props.business} className="nav-item nav-link">Business</a>
-        <a className="nav-item nav-link" href="#">Politics</a>
+        
       </div>
     </div>
   </nav>
