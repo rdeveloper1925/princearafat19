@@ -9,31 +9,86 @@ class App extends Component {
     super();
     this.state = {
       articles:[],
-      url:'https://newsapi.org/v2/top-headlines?country=us&category=sport&apiKey=d34d2662b6c14fd9bc90399cb5ba8f33'
+      sport:'https://newsapi.org/v2/top-headlines?country=us&category=sport&apiKey=d34d2662b6c14fd9bc90399cb5ba8f33',
+      entertainment:'https://newsapi.org/v2/top-headlines?country=us&category=entertainment&apiKey=d34d2662b6c14fd9bc90399cb5ba8f33',
+      politics:'https://newsapi.org/v2/top-headlines?country=us&category=politics&apiKey=d34d2662b6c14fd9bc90399cb5ba8f33',
+      technology:'https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=d34d2662b6c14fd9bc90399cb5ba8f33',
+      science:'https://newsapi.org/v2/top-headlines?country=us&category=science&apiKey=d34d2662b6c14fd9bc90399cb5ba8f33',
+      status: 'Select a Topic'
     };
+    this.sport=this.sport.bind(this);
+    this.entertainment=this.entertainment.bind(this);
   }
 
-  componentDidMount(){
-    axios.get(this.state.url)
+
+  sport=()=>{
+    this.setState({status:'Loading Sports Articles...'});
+     axios.get(this.state.sport)
     .then((response)=>{
       this.setState({articles:response.data.articles});
-      console.log(response.data.articles);
+      this.setState({status:'Sports Articles Retrieved!'});
     })
-    .catch();
+    .catch((e)=>{
+      this.setState({status:'An Error Occured '.e});
+    });
+  }
+
+  entertainment=()=>{
+    this.setState({status:'Loading Entertainment Articles...'});
+     axios.get(this.state.entertainment)
+    .then((response)=>{
+      this.setState({articles:response.data.articles});
+      this.setState({status:'Entertainment Articles Retrieved!'});
+    })
+    .catch((e)=>{
+      this.setState({status:'An Error Occured '.e});
+    });
+  }
+
+  technology=()=>{
+    this.setState({status:'Loading Technology Articles...'});
+     axios.get(this.state.technology)
+    .then((response)=>{
+      this.setState({articles:response.data.articles});
+      this.setState({status:'Technology Articles Retrieved!'});
+    })
+    .catch((e)=>{
+      this.setState({status:'An Error Occured '.e});
+    });
+  }
+
+  politics=()=>{
+    this.setState({status:'Loading Politics Articles...'});
+     axios.get(this.state.politics)
+    .then((response)=>{
+      this.setState({articles:response.data.articles});
+      this.setState({status:'Politics Articles Retrieved!'});
+    })
+    .catch((e)=>{
+      this.setState({status:'An Error Occured '.e});
+    });
+  }
+
+  science=()=>{
+    this.setState({status:'Loading Science Articles...'});
+     axios.get(this.state.science)
+    .then((response)=>{
+      this.setState({articles:response.data.articles});
+      this.setState({status:'Science Articles Retrieved!'});
+    })
+    .catch((e)=>{
+      this.setState({status:'An Error Occured '.e});
+    });
   }
 
   render() {
     let style={'width':'18rem'};
     let style2={'padding':'10px'};
-
-   const business=()=>{
-     this.setState({url:'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=d34d2662b6c14fd9bc90399cb5ba8f33'});
-  }
-
+    
 
     const articles=this.state.articles.map((v,i)=>{
       return (
-        <div className='row shadow-lg p-3 mb-5 bg-white rounded' style={style2}>
+        <div className='row shadow-lg p-3 mb-5 bg-white rounded' id={i} style={style2}>
           <div className='col-md-4'>
             <img className="rounded" height='220px' width='350px' src={v.urlToImage}/>
           </div>
@@ -46,15 +101,31 @@ class App extends Component {
           </div>
         </div>
       );
-    })
+    });
+
     return (
       <div>
-      <NavBar 
-      business={business} 
-      sport={} 
-      entertainment={} politics/>
+      <NavBar/>
         <div className="container">
-        {articles}
+          <div className="row">
+            <div className='col-md-2' style={style2}>
+              <button onClick={this.entertainment} className='btn col-md-12 btn-primary btn-sm'>Entertainment</button>
+            </div>
+            <div className='col-md-2' style={style2}>
+              <button onClick={this.sport} className='btn col-md-12 btn-primary btn-sm'>Sports</button>
+            </div>
+            <div className='col-md-2' style={style2}>
+              <button onClick={this.technology} className='btn col-md-12 btn-primary btn-sm'>Technology</button>
+            </div>
+            <div className='col-md-2' style={style2}>
+              <button onClick={this.politics} className='btn col-md-12 btn-primary btn-sm'>Politics</button>
+            </div>
+            <div className='col-md-2' style={style2}>
+              <button onClick={this.science} className='btn col-md-12 btn-primary btn-sm'>Science</button>
+            </div>
+          </div>
+          {this.state.status}
+          {articles}
         </div>
       </div>
     );
